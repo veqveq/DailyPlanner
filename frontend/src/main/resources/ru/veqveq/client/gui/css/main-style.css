@@ -1,0 +1,16 @@
+.tab{
+    -fx-cursor: hand;
+}
+
+.title-style{
+    -fx-font-family: "Comic Sans MS";
+    -fx-alignment: center
+}
+
+.big-title{
+    -fx-font-size: 15px;
+}
+
+.middle-title{
+    -fx-font-size: 10px;
+}
