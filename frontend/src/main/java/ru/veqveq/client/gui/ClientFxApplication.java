@@ -4,11 +4,14 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import ru.veqveq.client.ClientApplication;
+
+import java.io.InputStream;
 
 public class ClientFxApplication extends Application {
     private ConfigurableApplicationContext applicationContext;
@@ -20,7 +23,10 @@ public class ClientFxApplication extends Application {
         primaryStage.setScene(new Scene(root, 400, 400));
         primaryStage.setTitle("Планировщик задач");
         primaryStage.show();
-    }
+        InputStream stageLogo = getClass().getResourceAsStream("/ru/veqveq/client/gui/img/stagelogo.png");
+        Image icon = new Image(stageLogo);
+        primaryStage.getIcons().add(icon);
+            }
 
     @Override
     public void init() {
