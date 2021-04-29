@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 import lombok.RequiredArgsConstructor;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
+import ru.veqveq.client.gui.nodes.TaskNode;
 
 @Component
 @RequiredArgsConstructor
@@ -16,9 +17,11 @@ public class MainController {
 
     @FXML private Accordion accordion;
     @FXML private TitledPane toDay;
+    @FXML private TaskNode task;
 
     public void initialize() {
         accordion.setExpandedPane(toDay);
+        task.setText("Hello");
     }
 
     public void titledPaneClicked(MouseEvent mouseEvent) {
