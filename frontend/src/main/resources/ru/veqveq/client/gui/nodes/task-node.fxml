@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import ru.veqveq.nodes.ResizableTextArea?>
+<fx:root hgap="10" stylesheets="@/ru/veqveq/client/gui/nodes/css/task-node-style.css" type="javafx.scene.layout.GridPane"
+         xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <RadioButton fx:id="radio" GridPane.columnIndex="0"/>
+    <ResizableTextArea fx:id="text"
+                       text="Test"
+                       GridPane.columnIndex="1"
+                       GridPane.hgrow="ALWAYS"/>
+    <Button onAction="#edit" text="Изменить" GridPane.columnIndex="2"/>
+    <Button text="Удалить" GridPane.columnIndex="3"/>
+</fx:root>

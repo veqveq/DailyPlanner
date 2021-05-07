@@ -10,6 +10,7 @@ import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import ru.veqveq.client.ClientApplication;
+import ru.veqveq.client.gui.controllers.MainController;
 
 import java.io.InputStream;
 
