@@ -19,8 +19,7 @@
     -fx-font-family: "Comic Sans MS";
 }
 
-
-
-/*.task-titled-pane:onlyExpanded {*/
-/*    -fx-border-color: red;*/
-/*}*/
+.task-panel{
+    -fx-padding: 10;
+    -fx-spacing: 10;
+}

@@ -38,20 +38,26 @@
                 <Tab text="Задачи">
                     <AlwaysExpandedAccordion fx:id="accordion">
                         <panes>
-                            <TitledPane fx:id="toDay" styleClass="title-style,big-title" text="До конца дня">
+                            <TitledPane styleClass="title-style,big-title" text="До конца дня">
                                 <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
-                                    <VBox>
+                                    <VBox styleClass="task-panel" fx:id="toDay">
                                         <TaskNode/>
                                     </VBox>
                                 </ScrollPane>
                             </TitledPane>
                             <TitledPane styleClass="title-style,big-title"
                                         text="До конца недели">
-                                <AnchorPane/>
+                                <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+                                    <VBox styleClass="task-panel" fx:id="toWeek">
+                                    </VBox>
+                                </ScrollPane>
                             </TitledPane>
                             <TitledPane styleClass="title-style,big-title"
                                         text="До конца месяца">
-                                <AnchorPane/>
+                                <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+                                    <VBox styleClass="task-panel" fx:id="toMonth">
+                                    </VBox>
+                                </ScrollPane>
                             </TitledPane>
                         </panes>
                     </AlwaysExpandedAccordion>

@@ -1,94 +1,87 @@
 package ru.veqveq.client.gui.nodes;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.css.PseudoClass;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import ru.veqveq.client.gui.utils.PseudoClassFactory;
+import ru.veqveq.client.gui.utils.SceneCreator;
 import ru.veqveq.nodes.ResizableTextArea;
-
-import java.io.IOException;
 
 public class TaskNode extends GridPane {
     @FXML
-    private RadioButton radio;
+    private CheckBox checkBox;
     @FXML
-    private ResizableTextArea text;
-    private StringProperty taskText;
-        private BooleanProperty status;
+    private ResizableTextArea text, title;
+    @FXML
+    private Button delButton;
+    private final BooleanProperty completed;
+    private final BooleanProperty edited;
 
     public TaskNode(String text) {
-        new TaskNode();
+        this();
         this.text.setText(text);
     }
 
     public TaskNode() {
-        this.taskText = new SimpleStringProperty();
+        SceneCreator.getInstance().loadComponent("tasknode/task-node", this);
         getStyleClass().add("task-node");
-        FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("/ru/veqveq/nodes/task-node.fxml"));
-        loader.setRoot(this);
-        loader.setController(this);
-        try {
-            loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.status = new SimpleBooleanProperty(false);
-        status.addListener(new InvalidationListener() {
-            public void invalidated(Observable e) {
-                TaskNode.this.pseudoClassStateChanged(PseudoClass.getPseudoClass("status"), status.get());
-            }
-        });
-        radio.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent actionEvent) {
-                TaskNode.this.changeStatus();
-            }
-        });
-    }
-
-    public boolean isStatus() {
-        return status.get();
-    }
-
-    public void setStatus(boolean status) {
-        this.status.set(status);
-    }
-
-    public void changeStatus() {
-        setStatus(!isStatus());
-        text.setDisable(isStatus());
-    }
-
-    public String getTaskText() {
-        return taskText.get();
-    }
-
-    public StringProperty taskTextProperty() {
-        return taskText;
-    }
-
-    public void setTaskText(String taskText) {
-        this.taskText.set(taskText);
+        this.completed = new SimpleBooleanProperty(false);
+        this.edited = new SimpleBooleanProperty(false);
+        PseudoClassFactory.getInstance().create(this, "completed", "edited");
     }
 
     @FXML
-    private void edit() {
-        if (text.isEditable()) {
-            text.setEditable(false);
-            text.setStyle("-fx-font-style: normal");
-            taskText.setValue(text.getText());
-        } else {
-            text.setEditable(true);
-            text.setStyle("-fx-font-weight: bolder; -fx-font-size: 110%");
-        }
+    public void initialize() {
+        checkBox.setOnAction(actionEvent -> TaskNode.this.changeStatus());
+        title.setOnKeyPressed(keyEvent -> {
+            if (!keyEvent.getCode().equals(KeyCode.ENTER)) return;
+            text.requestFocus();
+            if (!text.isEmpty()) text.positionCaret(text.getText().length());
+            keyEvent.consume();
+        });
+        text.setOnKeyPressed(keyEvent -> {
+            if (!keyEvent.getCode().equals(KeyCode.ENTER)) return;
+            edit();
+            keyEvent.consume();
+        });
+    }
+
+    public boolean getCompleted() {
+        return completed.get();
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed.set(completed);
+    }
+
+    public boolean isEdited() {
+        return edited.get();
+    }
+
+    public void setEdited() {
+        this.edited.set(!isEdited());
+    }
+
+    public void changeStatus() {
+        setCompleted(!getCompleted());
+    }
+
+    public void edit() {
+        title.setEditable(!isEdited());
+        text.setEditable(!isEdited());
+        delButton.setDisable(!isEdited());
+        if (!isEdited()) title.requestFocus();
+        if (!title.isEmpty()) title.positionCaret(title.getText().length());
+        setEdited();
+    }
+
+    public void remove() {
+        Pane list = (Pane) this.getParent();
+        list.getChildren().remove(this);
     }
 }

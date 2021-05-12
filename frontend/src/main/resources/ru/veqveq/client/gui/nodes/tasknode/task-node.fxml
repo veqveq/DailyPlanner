@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import ru.veqveq.nodes.ResizableTextArea?>
+<fx:root hgap="10"
+         stylesheets="@task-node-style.css"
+         type="javafx.scene.layout.GridPane"
+         xmlns="http://javafx.com/javafx/10.0.2-internal"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <CheckBox styleClass="custom-check-box" fx:id="checkBox" GridPane.columnIndex="0"/>
+    <VBox GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+        <ResizableTextArea fx:id="title" placeholder="Задача"/>
+        <ResizableTextArea fx:id="text" placeholder="Комментарий"/>
+    </VBox>
+
+    <Button styleClass="edit-button" onAction="#edit" GridPane.columnIndex="2"/>
+    <Button fx:id="delButton" styleClass="delete-button" onAction="#remove" GridPane.columnIndex="3"/>
+</fx:root>

@@ -1,0 +1,105 @@
+.task-node {
+    -fx-border-style: solid;
+    -fx-border-color: #696969;
+    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
+    -fx-alignment: center-left;
+    -fx-wrap-text: true;
+    -fx-spacing: 10px;
+    -fx-padding: 10px;
+    -fx-fill-height: false;
+    -fx-background-color: lightblue;
+    -fx-font-style: normal;
+    -fx-cursor: hand;
+}
+
+.task-node:completed {
+    -fx-background-color: rgba(178, 255, 122, 0.4);
+}
+
+.task-node:edited {
+    -fx-font-weight: bolder;
+    -fx-font-size: 110%;
+    -fx-border-style: solid;
+    -fx-border-width: 5px;
+    -fx-border-color: #dc8e08;
+    -fx-background-radius: 20px;
+}
+
+.task-node .vbox{
+    -fx-spacing: 0;
+}
+
+#title{
+    -fx-font-size: 16px;
+}
+
+#text{
+    -fx-font-size: 12px;
+}
+
+.task-node:edited .edit-button {
+    -fx-background-image: url(startChangesIcon.png);
+}
+
+.edit-button {
+    -fx-background-image: url(saveChangesIcon.png);
+}
+
+.delete-button {
+    -fx-background-image: url(deleteTask.png);
+}
+
+.text-area {
+    -fx-wrap-text: true;
+    -fx-background-color: rgba(0, 0, 0, 0);
+    -fx-border-color: transparent;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: never;
+}
+
+.text-area .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .content {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-cursor: text;
+}
+
+.button {
+    -fx-background-color: transparent;
+    -fx-min-width: 32px;
+    -fx-background-position: center;
+    -fx-background-size: stretch;
+}
+
+.custom-check-box .box {
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-background-color: azure;
+    -fx-pref-height: 2em;
+    -fx-pref-width: 2em;
+    -fx-border-style: solid;
+    -fx-border-width: 3px;
+    -fx-border-color: cornflowerblue;
+}
+
+.custom-check-box:selected .mark {
+    -fx-background-color: darkgreen;
+}
+
+.custom-check-box:selected .box {
+    -fx-border-color: darkgreen;
+}
+
+.task-node:hover {
+    -fx-border-color: cadetblue;
+    -fx-border-width: 2px;
+}
+

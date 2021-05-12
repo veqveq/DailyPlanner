@@ -9,6 +9,7 @@ import java.net.URL;
 public class SceneCreator {
     private static volatile SceneCreator instance;
     private static final String ROOT_PATH = "/ru/veqveq/client/gui/";
+    private static final String COMPONENT_PATH = ROOT_PATH + "nodes/";
 
     private SceneCreator() {
     }
@@ -26,17 +27,32 @@ public class SceneCreator {
         return localInstance;
     }
 
-    public Parent createScene(String fxmlName) {
-        if (!fxmlName.endsWith(".fxml")) {
-            fxmlName = fxmlName + ".fxml";
-        }
+    public void loadComponent(String fxmlName, Parent root) {
+        URL url = getClass().getResource(COMPONENT_PATH + validFxmlName(fxmlName));
+        FXMLLoader loader = new FXMLLoader(url);
+        loader.setRoot(root);
+        loader.setController(root);
         try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-            URL url = getClass().getResource(ROOT_PATH + fxmlName);
+    public Parent createScene(String fxmlName) {
+        try {
+            URL url = getClass().getResource(ROOT_PATH + validFxmlName(fxmlName));
             return FXMLLoader.load(url);
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private String validFxmlName(String name) {
+        if (!name.endsWith(".fxml")) {
+            return name.concat(".fxml");
+        }
+        return name;
     }
 }
