@@ -1,0 +1,6 @@
+/.idea/
+/backend/target/
+/frontend/target/
+/DP.iml
+/frontend/src/main/resources/db/local/
+/backend/src/main/resources/db/net/
