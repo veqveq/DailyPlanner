@@ -15,6 +15,9 @@ import ru.veqveq.client.gui.controllers.MainController;
 import java.io.InputStream;
 
 public class ClientFxApplication extends Application {
+    public static final String ROOT_PATH = "/ru/veqveq/client/gui/";
+    public static final String COMPONENT_PATH = ROOT_PATH + "nodes/";
+
     private ConfigurableApplicationContext applicationContext;
 
     @Override
@@ -24,14 +27,14 @@ public class ClientFxApplication extends Application {
         primaryStage.setScene(new Scene(root, 400, 400));
         primaryStage.setTitle("Планировщик задач");
         primaryStage.show();
-        InputStream stageLogo = getClass().getResourceAsStream("/ru/veqveq/client/gui/img/stagelogo.png");
+        InputStream stageLogo = getClass().getResourceAsStream(ROOT_PATH + "img/stagelogo.png");
         Image icon = new Image(stageLogo);
         primaryStage.getIcons().add(icon);
-            }
+    }
 
     @Override
     public void init() {
-        String [] args = getParameters().getRaw().toArray(new String[0]);
+        String[] args = getParameters().getRaw().toArray(new String[0]);
         this.applicationContext = new SpringApplicationBuilder()
                 .sources(ClientApplication.class)
                 .run(args);

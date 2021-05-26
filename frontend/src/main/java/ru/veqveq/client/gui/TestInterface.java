@@ -4,7 +4,9 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ru.veqveq.client.gui.utils.SceneCreator;
+import ru.veqveq.utils.SceneCreator;
+
+import static ru.veqveq.client.gui.ClientFxApplication.ROOT_PATH;
 
 public class TestInterface extends Application {
     public static void main(String[] args) {
@@ -13,11 +15,7 @@ public class TestInterface extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-//        FXMLLoader loader = new FXMLLoader();
-//        URL url = getClass().getResource("/ru/veqveq/client/gui/main-scene.fxml");
-//        loader.setLocation(url);
-//        Parent root = loader.load();
-        Parent root = SceneCreator.getInstance().createScene("main-scene");
+        Parent root = SceneCreator.getInstance().createScene(ROOT_PATH + "main-scene");
         stage.setScene(new Scene(root, 400, 400));
         stage.setTitle("Test");
         stage.show();

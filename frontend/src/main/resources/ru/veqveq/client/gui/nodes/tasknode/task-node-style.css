@@ -26,15 +26,15 @@
     -fx-background-radius: 20px;
 }
 
-.task-node .vbox{
+.task-node .vbox {
     -fx-spacing: 0;
 }
 
-#title{
+#title {
     -fx-font-size: 16px;
 }
 
-#text{
+#text {
     -fx-font-size: 12px;
 }
 
@@ -48,6 +48,14 @@
 
 .delete-button {
     -fx-background-image: url(deleteTask.png);
+}
+
+.imp-button {
+    -fx-image: url(important.png);
+}
+
+.quick-button {
+    -fx-image: url(quickly.png);
 }
 
 .text-area {
@@ -99,7 +107,7 @@
 }
 
 .task-node:hover {
-    -fx-border-color: cadetblue;
-    -fx-border-width: 2px;
+    -fx-background-color: rgba(173, 216, 230, 0.3);
 }
+
 

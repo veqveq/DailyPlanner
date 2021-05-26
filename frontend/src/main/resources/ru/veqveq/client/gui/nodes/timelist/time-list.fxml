@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import ru.veqveq.nodes.AlwaysExpandedAccordion?>
+
+<fx:root type="ru.veqveq.nodes.AlwaysExpandedAccordion"
+         xmlns="http://javafx.com/javafx/10.0.2-internal"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <panes>
+        <TitledPane styleClass="title-style,big-title" text="До конца дня">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+                <VBox styleClass="task-panel" fx:id="toDay"/>
+            </ScrollPane>
+        </TitledPane>
+        <TitledPane styleClass="title-style,big-title"
+                    text="До конца недели">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+                <VBox styleClass="task-panel" fx:id="toWeek"/>
+            </ScrollPane>
+        </TitledPane>
+        <TitledPane styleClass="title-style,big-title"
+                    text="До конца месяца">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+                <VBox styleClass="task-panel" fx:id="toMonth"/>
+            </ScrollPane>
+        </TitledPane>
+        <TitledPane styleClass="title-style,big-title"
+                    text="Без даты">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+                <VBox styleClass="task-panel" fx:id="other"/>
+            </ScrollPane>
+        </TitledPane>
+        <TitledPane styleClass="title-style,big-title"
+                    text="Просроченные">
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+                <VBox styleClass="task-panel" fx:id="expired"/>
+            </ScrollPane>
+        </TitledPane>
+    </panes>
+</fx:root>

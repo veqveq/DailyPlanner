@@ -1,16 +1,27 @@
 package ru.veqveq.client.gui.nodes;
 
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import ru.veqveq.client.gui.utils.PseudoClassFactory;
-import ru.veqveq.client.gui.utils.SceneCreator;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
+import ru.veqveq.client.models.Task;
+import ru.veqveq.nodes.RepaintButton;
 import ru.veqveq.nodes.ResizableTextArea;
+import ru.veqveq.utils.PseudoClassFactory;
+import ru.veqveq.utils.SceneCreator;
+
+import java.time.LocalDate;
+
+import static ru.veqveq.client.gui.ClientFxApplication.COMPONENT_PATH;
 
 public class TaskNode extends GridPane {
     @FXML
@@ -19,19 +30,37 @@ public class TaskNode extends GridPane {
     private ResizableTextArea text, title;
     @FXML
     private Button delButton;
+    @FXML
+    private RepaintButton quickBt, importantBt;
+    @FXML
+    private DatePicker deadline;
+
     private final BooleanProperty completed;
     private final BooleanProperty edited;
+    private final BooleanProperty updated;
+    private Long taskId;
 
-    public TaskNode(String text) {
+    public TaskNode(Task task) {
         this();
-        this.text.setText(text);
+        this.taskId = task.getId();
+        if (task.getTitle() != null) title.setText(task.getTitle());
+        if (task.getText() != null) text.setText(task.getText());
+        if (task.getImportant() != null) importantBt.tapedProperty().setValue(task.getImportant());
+        if (task.getQuickly() != null) quickBt.tapedProperty().setValue(task.getQuickly());
+        if (task.getDeadline() != null) deadline.setValue(task.getDeadline());
+        title.setEditable(false);
+        text.setEditable(false);
     }
 
-    public TaskNode() {
-        SceneCreator.getInstance().loadComponent("tasknode/task-node", this);
+    private TaskNode() {
+        SceneCreator.getInstance().loadComponent(COMPONENT_PATH + "tasknode/task-node", this);
         getStyleClass().add("task-node");
         this.completed = new SimpleBooleanProperty(false);
         this.edited = new SimpleBooleanProperty(false);
+        this.updated = new SimpleBooleanProperty();
+        edited.addListener((observableValue, oldValue, newValue) -> {
+            if (oldValue && !newValue) setUpdated(true);
+        });
         PseudoClassFactory.getInstance().create(this, "completed", "edited");
     }
 
@@ -49,6 +78,9 @@ public class TaskNode extends GridPane {
             edit();
             keyEvent.consume();
         });
+
+        quickBt.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> Platform.runLater(() -> setUpdated(true)));
+        importantBt.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> Platform.runLater(() -> setUpdated(true)));
     }
 
     public boolean getCompleted() {
@@ -67,8 +99,33 @@ public class TaskNode extends GridPane {
         this.edited.set(!isEdited());
     }
 
+    public boolean isUpdated() {
+        return updated.get();
+    }
+
+    public BooleanProperty updatedProperty() {
+        return updated;
+    }
+
+    public void setUpdated(boolean updated) {
+        this.updated.setValue(updated);
+    }
+
     public void changeStatus() {
         setCompleted(!getCompleted());
+    }
+
+
+    public Long getTaskId() {
+        return taskId;
+    }
+
+    public String getText() {
+        return text.getText();
+    }
+
+    public String getTitle() {
+        return title.getText();
     }
 
     public void edit() {
@@ -83,5 +140,17 @@ public class TaskNode extends GridPane {
     public void remove() {
         Pane list = (Pane) this.getParent();
         list.getChildren().remove(this);
+    }
+
+    public boolean isQuickly() {
+        return quickBt.tapedProperty().getValue();
+    }
+
+    public boolean isImportant() {
+        return importantBt.tapedProperty().getValue();
+    }
+
+    public LocalDate getDeadline() {
+        return deadline.getValue();
     }
 }
